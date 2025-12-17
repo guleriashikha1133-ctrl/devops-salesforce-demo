@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Account Details ">
+   <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <tr>
+            <th>Name:</th>
+           
+        </tr>
+        <template  for:each={accounts} for:item="acc">
+
+        <tr key={acc.accId}>
+            <td><a href = "javascript:void(0)" data-id ={acc.accId} data-name={acc.accName} onclick={onAccountClick}>{acc.accName}</a></td>
+        </tr>
+        </template>
+        </table>
+    </lightning-card>
+    
+</template>

@@ -1,0 +1,37 @@
+<template>
+   <lightning-card title=" Sub-Contact Data">
+    
+    <template if:true={isSubContacts}>
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <tr>
+            <th>Name:</th>
+            <th>Email:</th>
+            <th>Designation:</th>
+            <th>Department:</th>
+            <th> Is Active?</th>
+        </tr>
+        <template  for:each={subContacts} for:item="subCon">
+         
+ <tr key={subCon.Id}>
+            <td>{subCon.Name}</td>
+            <td>{subCon.Email__c}</td>
+            <td>{subCon.Designation__c}</td>
+            <td>{subCon.Department__c}</td>
+            <td> <lightning-input 
+              type="checkbox" 
+               
+              checked={subCon.isCheked}
+            onchange={handleCheckboxChange}>
+           </lightning-input></td>
+
+        </tr>
+        </template>
+       
+    </table>
+    </template>
+    <template if:false={isSubContacts}>
+        <p>No Data Found ......</p>
+
+    </template>
+   </lightning-card>
+</template>

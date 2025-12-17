@@ -1,0 +1,39 @@
+<template>
+   <lightning-card title="Account Data">
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <tr>
+            <th>Name:</th>
+            <th>Phone:</th>
+            <th>Website:</th>
+            <th>Type:</th>
+            <th>Industry:</th>
+            <th>Sub Contact Name:</th>
+        </tr>
+        <template  for:each={accounts} for:item="acc">
+         
+ <tr key={acc.accId}>
+            <td><a href = "javascript:void(0)" data-id ={acc.accId}  onclick={onAccountClick}>{acc.accName}</a></td>
+            <td>{acc.accPhone}</td>
+            <td>{acc.accWebsite}</td>
+            <td>{acc.accType}</td>
+            <td>{acc.accIndustry}</td>
+            <td>{acc.accSubContactName}</td>
+
+        </tr>
+        <template if:true={acc.isShow}>
+            
+                <tr key={acc.accId}>
+                    <td>
+                <c-contact-data-table account-id={acc.accId} oncheckboxchange={childCheckboxHandler}></c-contact-data-table>
+                <!-- <c-sub-contact-data-table account-id={acc.accId} oncheckboxchange={childCheckboxHandler}></c-sub-contact-data-table> -->
+                </td>
+                </tr>
+       
+        
+        </template>
+        
+       
+    </table>
+   
+   </lightning-card>
+</template>

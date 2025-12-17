@@ -1,0 +1,37 @@
+<template>
+   <lightning-card title="Contact Data">
+    <template if:true={isContact}>
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <tr>
+            <th>Name:</th>
+            <th>Phone:</th>
+            <th>Sub Contact:</th>
+            
+        </tr>
+        <template  for:each={contacts} for:item="con">
+         
+ <tr key={con.conId}>
+            <td><a href="javascript:void(0)" data-id={con.conId} onclick={onContactClick}>{con.conName}</a></td>
+            <td>{con.conPhone}</td>
+             <td>{con.conSubContact}</td>
+
+        </tr>
+        <template if:true={con.isShowSubContact}>
+            
+                <tr key={con.conId}>
+                    <td>
+                <c-sub-contact-data-table contact-id={con.conId} oncheckboxchange={checkboxHandlerChange}></c-sub-contact-data-table>
+                </td>
+                </tr>
+       
+        
+        </template>
+        </template>
+       
+    </table>
+    </template>
+    <template if:false={isContact}>
+       <p> No Contact Data Found..........</p>
+    </template>
+   </lightning-card>
+</template>
