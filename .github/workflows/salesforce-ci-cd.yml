@@ -1,0 +1,32 @@
+name: Salesforce CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Install Salesforce CLI
+      run: npm install -g @salesforce/cli
+
+    - name: Authenticate Salesforce (JWT)
+      run: |
+        echo "${{ secrets.SF_JWT_KEY }}" > server.key
+        sf org login jwt \
+          --username ${{ secrets.SF_USERNAME }} \
+          --client-id ${{ secrets.SF_CLIENT_ID }} \
+          --jwt-key-file server.key \
+          --instance-url ${{ secrets.SF_INSTANCE_URL }} \
+          --alias targetOrg
+
+    - name: Run Apex Tests
+      run: sf apex run test --test-level RunLocalTests --target-org targetOrg
+
+    - name: Deploy to Salesforce
+      run: sf project deploy start --target-org targetOrg
